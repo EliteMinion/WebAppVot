@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VOT Proekt</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        {% if 'user_id' in session %}
+            <h1>Items</h1>
+            <div>
+                <a href="/logout">Logout</a> |
+                <a href="/delete_account">Delete Account</a>
+            </div>
+            <form action="/add" method="post">
+                <input type="text" name="name" placeholder="Add a new item" required>
+                <button type="submit">Add</button>
+            </form>
+            <ul>
+                {% for item in items %}
+                    <li>
+                        {{ item.name }}
+                        <a href="/delete/{{ item.id }}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+                <h1>Register</h1>
+                <form action="/register" method="post">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <h1>Login</h1>
+                <form action="/login" method="post">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            
+        {% endif %}
+    </div>
+</body>
+</html>
